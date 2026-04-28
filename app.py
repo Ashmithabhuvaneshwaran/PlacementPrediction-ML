@@ -9,6 +9,7 @@ import warnings
 import joblib
 import os
 import sys
+from pathlib import Path
 from datetime import datetime
 from pymongo import MongoClient
 from dotenv import load_dotenv
@@ -16,6 +17,7 @@ from auth import log_admin_action
 
 # Load environment variables
 load_dotenv()
+BASE_DIR = Path(__file__).resolve().parent
 
 # Suppress all sklearn warnings
 warnings.filterwarnings('ignore')
@@ -31,8 +33,13 @@ if not hasattr(tree_classes.DecisionTreeClassifier, 'monotonic_cst'):
     tree_classes.DecisionTreeClassifier.monotonic_cst = None
 
 app = Flask(__name__, template_folder="templates")
-app.config['SECRET_KEY'] = 'placement-prediction-ml-2026-secret'
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///placement_users.db'
+app.config['SECRET_KEY'] = os.getenv('SECRET_KEY', 'placement-prediction-ml-2026-secret')
+
+database_url = os.getenv('DATABASE_URL')
+if database_url and database_url.startswith('postgres://'):
+    database_url = database_url.replace('postgres://', 'postgresql://', 1)
+
+app.config['SQLALCHEMY_DATABASE_URI'] = database_url or f"sqlite:///{(BASE_DIR / 'placement_users.db').as_posix()}"
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 # Initialize database
@@ -134,13 +141,16 @@ class Prediction(db.Model):
 # ============================================================================
 
 def load_models():
+    model_path = BASE_DIR / 'model.pkl'
+    model1_path = BASE_DIR / 'model1.pkl'
+
     try:
-        model = joblib.load('model.pkl')
-        model1 = joblib.load('model1.pkl')
+        model = joblib.load(model_path)
+        model1 = joblib.load(model1_path)
     except Exception as e:
         try:
-            model = pickle.load(open('model.pkl', 'rb'))
-            model1 = pickle.load(open('model1.pkl', 'rb'))
+            model = pickle.load(open(model_path, 'rb'))
+            model1 = pickle.load(open(model1_path, 'rb'))
         except Exception as e2:
             print(f"Error loading models: {e}, {e2}")
             model = None

@@ -17,9 +17,10 @@ A comprehensive Flask-based web application that predicts student placement outc
 7. [Input Guide](#input-guide)
 8. [Model Information](#model-information)
 9. [Results & Performance](#results--performance)
-10. [Troubleshooting](#troubleshooting)
-11. [Contributing](#contributing)
-12. [License](#license)
+10. [Deployment Guide](#-deploy-on-render)
+11. [Troubleshooting](#troubleshooting)
+12. [Contributing](#contributing)
+13. [License](#license)
 
 ---
 
@@ -507,6 +508,41 @@ python run_app.py
 - **Input Validation:** Email and data validation
 - **User Authentication:** Login/Register system
 - **Database Security:** SQLAlchemy ORM prevents SQL injection
+
+---
+
+## 🚀 Deploy on Render
+
+This project is ready for Render deployment with the included `render.yaml` blueprint.
+
+### 1. Push the project to GitHub
+Make sure the repository contains:
+- `app.py`
+- `requirements.txt`
+- `render.yaml`
+- `Placement_Prediction_data.csv`
+- `Salary_prediction_data.csv`
+
+### 2. Create a new Render Web Service
+In Render, choose **New > Web Service** and connect your GitHub repository.
+
+### 3. Use the Render settings from `render.yaml`
+Render will use these settings:
+- **Build Command:** `pip install -r requirements.txt && python retrain_models.py`
+- **Start Command:** `gunicorn app:app`
+
+### 4. Add environment variables
+Set these in the Render dashboard:
+- `SECRET_KEY` - any long random string
+- `MONGO_URI` - your MongoDB Atlas connection string
+- `DATABASE_URL` - optional; if omitted, the app uses local SQLite
+
+### 5. Deploy
+After the first deploy, Render will install dependencies, train the ML models, and start the Flask app through Gunicorn.
+
+### Notes
+- The ML models are generated during the Render build step, so `model.pkl` and `model1.pkl` do not need to be committed.
+- If you want persistent user data, connect `DATABASE_URL` to a managed PostgreSQL database instead of the default SQLite file.
 
 ---
 
