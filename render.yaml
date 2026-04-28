@@ -2,6 +2,7 @@ services:
   - type: web
     name: placement-prediction-ml
     env: python
+    pythonVersion: 3.13
     plan: free
     buildCommand: pip install -r requirements.txt && python retrain_models.py
     startCommand: gunicorn app:app
