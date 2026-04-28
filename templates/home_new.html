@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Placement Prediction System</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #f5f7fa;
+        }
+
+        .navbar {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 20px 0;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .navbar-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .navbar h1 {
+            font-size: 28px;
+            font-weight: 700;
+        }
+
+        .navbar-links {
+            display: flex;
+            gap: 20px;
+            align-items: center;
+        }
+
+        .navbar-links a {
+            color: white;
+            text-decoration: none;
+            transition: opacity 0.3s ease;
+            padding: 8px 16px;
+            border-radius: 5px;
+        }
+
+        .navbar-links a:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        .hero {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 80px 20px;
+            text-align: center;
+        }
+
+        .hero-content {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .hero h2 {
+            font-size: 48px;
+            margin-bottom: 20px;
+            font-weight: 700;
+        }
+
+        .hero p {
+            font-size: 18px;
+            opacity: 0.95;
+            margin-bottom: 30px;
+            line-height: 1.6;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 14px 40px;
+            border-radius: 5px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        .btn-primary {
+            background: white;
+            color: #667eea;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: white;
+            border: 2px solid white;
+        }
+
+        .btn-secondary:hover {
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 60px 20px;
+        }
+
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-bottom: 60px;
+        }
+
+        .feature-card {
+            background: white;
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+            text-align: center;
+        }
+
+        .feature-icon {
+            font-size: 48px;
+            margin-bottom: 20px;
+        }
+
+        .feature-card h3 {
+            color: #333;
+            margin-bottom: 15px;
+            font-size: 20px;
+        }
+
+        .feature-card p {
+            color: #666;
+            line-height: 1.6;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 36px;
+            color: #333;
+            margin-bottom: 50px;
+            font-weight: 700;
+        }
+
+        .about-section {
+            background: white;
+            padding: 60px 40px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+            max-width: 900px;
+            margin: 0 auto 60px;
+        }
+
+        .about-section h3 {
+            color: #333;
+            margin-bottom: 20px;
+            font-size: 24px;
+            font-weight: 700;
+        }
+
+        .about-section p {
+            color: #666;
+            line-height: 1.8;
+            margin-bottom: 15px;
+        }
+
+        .footer {
+            background: #333;
+            color: white;
+            text-align: center;
+            padding: 40px 20px;
+            margin-top: 60px;
+        }
+
+        .footer p {
+            margin-bottom: 10px;
+        }
+
+        @media (max-width: 768px) {
+            .hero h2 {
+                font-size: 32px;
+            }
+
+            .hero p {
+                font-size: 16px;
+            }
+
+            .hero-buttons {
+                flex-direction: column;
+            }
+
+            .btn {
+                width: 100%;
+            }
+
+            .section-title {
+                font-size: 28px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="navbar">
+        <div class="navbar-content">
+            <h1>📊 Placement Prediction System</h1>
+            <div class="navbar-links">
+                <a href="{{ url_for('about') }}">About</a>
+                <a href="{{ url_for('login') }}">Login</a>
+                <a href="{{ url_for('register') }}">Register</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="hero">
+        <div class="hero-content">
+            <h2>Predict Your Placement Success</h2>
+            <p>Use machine learning to predict your placement status and expected salary based on your academic performance and skills.</p>
+            <div class="hero-buttons">
+                <a href="{{ url_for('register') }}" class="btn btn-primary">Get Started</a>
+                <a href="{{ url_for('about') }}" class="btn btn-secondary">Learn More</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <h2 class="section-title">Why Use Our System?</h2>
+        <div class="features">
+            <div class="feature-card">
+                <div class="feature-icon">🤖</div>
+                <h3>AI-Powered Predictions</h3>
+                <p>Advanced machine learning models trained on real placement data to provide accurate predictions.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">📊</div>
+                <h3>Detailed Analytics</h3>
+                <p>Get comprehensive insights into your placement prospects with detailed analysis and reports.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">🔒</div>
+                <h3>Secure & Private</h3>
+                <p>Your data is safely stored in our secure MongoDB database with user authentication.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">📈</div>
+                <h3>Track Progress</h3>
+                <p>Monitor your improvement over time with historical prediction data and trends.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">⚡</div>
+                <h3>Fast Results</h3>
+                <p>Get instant predictions as soon as you provide your academic details.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">👨‍💼</div>
+                <h3>Admin Dashboard</h3>
+                <p>Comprehensive admin panel to manage users, predictions, and system analytics.</p>
+            </div>
+        </div>
+
+        <div class="about-section">
+            <h3>How It Works</h3>
+            <p>
+                Our placement prediction system uses advanced machine learning algorithms to analyze your academic profile and predict your placement status along with expected salary.
+            </p>
+            <p>
+                <strong>Step 1:</strong> Create a free account and log in to the system.
+            </p>
+            <p>
+                <strong>Step 2:</strong> Fill in your academic details including CGPA, projects, skills, and other relevant information.
+            </p>
+            <p>
+                <strong>Step 3:</strong> Get instant predictions for your placement status and expected salary.
+            </p>
+            <p>
+                <strong>Step 4:</strong> View your prediction history and track your improvement over time.
+            </p>
+        </div>
+    </div>
+
+    <div class="footer">
+        <p>&copy; 2026 Placement Prediction System. All rights reserved.</p>
+        <p>Built with ❤️ using Flask, MongoDB, and Machine Learning</p>
+    </div>
+</body>
+</html>

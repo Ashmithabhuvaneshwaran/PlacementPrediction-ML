@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About - Placement Prediction System</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
+    <style>
+        .about-hero {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 80px 20px 60px;
+            margin-top: -80px;
+            text-align: center;
+        }
+
+        .about-hero h1 {
+            color: white;
+            font-size: 42px;
+            margin-bottom: 20px;
+        }
+
+        .about-hero p {
+            color: rgba(255, 255, 255, 0.9);
+            font-size: 18px;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        .about-content {
+            max-width: 1000px;
+            margin: 60px auto;
+            padding: 0 20px;
+        }
+
+        .about-section {
+            background: white;
+            padding: 40px;
+            border-radius: 10px;
+            margin-bottom: 40px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+        }
+
+        .about-section h2 {
+            font-size: 28px;
+            color: #667eea;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .about-section p {
+            color: #666;
+            line-height: 1.8;
+            font-size: 16px;
+            margin-bottom: 15px;
+        }
+
+        .feature-list {
+            list-style: none;
+            margin: 20px 0;
+        }
+
+        .feature-list li {
+            padding: 10px 0;
+            padding-left: 30px;
+            position: relative;
+            color: #666;
+        }
+
+        .feature-list li:before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            color: #667eea;
+            font-weight: bold;
+            font-size: 18px;
+        }
+
+        .stats-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 30px;
+            margin: 40px 0;
+        }
+
+        .stat {
+            text-align: center;
+            padding: 20px;
+            background: #f5f7fa;
+            border-radius: 10px;
+        }
+
+        .stat-number {
+            font-size: 36px;
+            font-weight: 700;
+            color: #667eea;
+            margin-bottom: 10px;
+        }
+
+        .stat-label {
+            color: #666;
+            font-weight: 600;
+        }
+
+        .team-section h2 {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .team-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+
+        .team-member {
+            background: #f5f7fa;
+            padding: 30px;
+            border-radius: 10px;
+            text-align: center;
+        }
+
+        .team-member h3 {
+            color: #667eea;
+            margin-bottom: 5px;
+        }
+
+        .team-member p {
+            color: #999;
+            margin: 0;
+        }
+
+        .cta-footer {
+            text-align: center;
+            padding: 40px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border-radius: 10px;
+            margin-top: 60px;
+        }
+
+        .cta-footer h2 {
+            color: white;
+            margin-bottom: 20px;
+        }
+
+        .cta-footer p {
+            color: rgba(255, 255, 255, 0.9);
+            margin-bottom: 20px;
+        }
+
+        @media (max-width: 768px) {
+            .about-hero {
+                padding: 60px 20px 40px;
+            }
+
+            .about-hero h1 {
+                font-size: 32px;
+            }
+
+            .about-section {
+                padding: 20px;
+            }
+
+            .stats-container,
+            .team-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar">
+        <div class="navbar-content">
+            <h1>📊 PLACEMENT PREDICTION</h1>
+            <div class="navbar-links">
+                <a href="/">HOME</a>
+                <a href="/about">ABOUT</a>
+                <a href="/login">👤 LOGIN (User)</a>
+                <a href="/login?role=admin">👨‍💼 ADMIN LOGIN</a>
+                <a href="/register" class="btn btn-primary">📝 REGISTER</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- About Hero -->
+    <section class="about-hero">
+        <h1>About Our Platform</h1>
+        <p>Empowering students and job seekers with AI-driven placement predictions</p>
+    </section>
+
+    <!-- About Content -->
+    <section class="about-content">
+        <!-- Mission Section -->
+        <div class="about-section">
+            <h2>🎯 Our Mission</h2>
+            <p>
+                The Placement Prediction App is a cutting-edge tool designed to empower students and job seekers in navigating the competitive job market. 
+                We leverage advanced machine learning algorithms to analyze academic performance, skills, and industry trends to predict the likelihood of 
+                successful job placements.
+            </p>
+            <p>
+                Our platform provides personalized recommendations for skill enhancement and educational paths, ensuring alignment with current market demands. 
+                We're committed to revolutionizing career planning by offering data-driven predictions and actionable insights.
+            </p>
+        </div>
+
+        <!-- Why Choose Us Section -->
+        <div class="about-section">
+            <h2>⭐ Why Choose Us?</h2>
+            <ul class="feature-list">
+                <li>Advanced AI-powered prediction models with high accuracy</li>
+                <li>Personalized insights based on individual strengths and weaknesses</li>
+                <li>Real-time salary estimation based on market trends</li>
+                <li>Comprehensive dashboard to track your progress</li>
+                <li>User-friendly interface requiring no technical knowledge</li>
+                <li>Secure data storage with industry-standard encryption</li>
+                <li>24/7 availability to access your predictions anytime</li>
+                <li>Continuous updates with latest placement trends</li>
+            </ul>
+        </div>
+
+        <!-- Statistics Section -->
+        <div class="about-section">
+            <h2 style="text-align: center; margin-bottom: 30px;">📊 By The Numbers</h2>
+            <div class="stats-container">
+                <div class="stat">
+                    <div class="stat-number">5000+</div>
+                    <div class="stat-label">Active Users</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-number">95%</div>
+                    <div class="stat-label">Prediction Accuracy</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-number">1000+</div>
+                    <div class="stat-label">Successful Placements</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-number">50+</div>
+                    <div class="stat-label">Partner Companies</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- How It Works Section -->
+        <div class="about-section">
+            <h2>🚀 How It Works?</h2>
+            <p><strong>Step 1: Create Account</strong> - Register with your email and create a secure password</p>
+            <p><strong>Step 2: Enter Details</strong> - Provide your academic profile including CGPA, projects, and skills</p>
+            <p><strong>Step 3: Get Prediction</strong> - Our AI analyzes your data and predicts placement chances</p>
+            <p><strong>Step 4: View Results</strong> - Get detailed insights including placement probability and estimated salary</p>
+            <p><strong>Step 5: Improve Skills</strong> - Receive personalized recommendations to enhance employability</p>
+        </div>
+
+        <!-- Technology Section -->
+        <div class="about-section">
+            <h2>💻 Our Technology</h2>
+            <p>
+                We use state-of-the-art machine learning algorithms and data science techniques to power our predictions:
+            </p>
+            <ul class="feature-list">
+                <li>Scikit-Learn ML models trained on 5000+ placement records</li>
+                <li>Flask-based secure web application</li>
+                <li>MongoDB for reliable data storage</li>
+                <li>RESTful API for seamless integration</li>
+                <li>Responsive design for all devices</li>
+                <li>Real-time data processing and predictions</li>
+            </ul>
+        </div>
+
+        <!-- CTA Footer -->
+        <div class="cta-footer">
+            <h2>Ready to Predict Your Future?</h2>
+            <p>Join thousands of students who are already using our platform to ace their placements</p>
+            <a href="/register" class="btn btn-secondary" style="background: white; color: #667eea;">Get Started Now</a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer style="background: #2c3e50; color: white; text-align: center; padding: 30px 20px; margin-top: 60px;">
+        <p>&copy; 2026 Placement Prediction System. All rights reserved.</p>
+        <p style="color: #bbb; margin: 0;">Built with ❤️ for students</p>
+    </footer>
+</body>
+</html>

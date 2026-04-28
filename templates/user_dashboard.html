@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Dashboard - Placement Prediction</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
+    <style>
+        body {
+            background: #f5f7fa;
+            padding-top: 80px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 30px 20px;
+        }
+
+        .welcome-section {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            margin-bottom: 30px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+        }
+
+        .welcome-section h2 {
+            color: #333;
+            margin-bottom: 10px;
+        }
+
+        .welcome-section p {
+            color: #666;
+        }
+
+        .action-buttons {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+        }
+
+        .predictions-section {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+        }
+
+        .predictions-section h3 {
+            color: #333;
+            margin-bottom: 20px;
+            font-size: 20px;
+        }
+
+        .predictions-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .predictions-table thead {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+
+        .predictions-table th {
+            padding: 12px;
+            text-align: left;
+            font-weight: 600;
+            text-transform: uppercase;
+            font-size: 12px;
+        }
+
+        .predictions-table td {
+            padding: 12px;
+            border-bottom: 1px solid #e0e0e0;
+            color: #666;
+        }
+
+        .predictions-table tbody tr:hover {
+            background: #f9f9f9;
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        .badge-placed {
+            background: #d4edda;
+            color: #155724;
+        }
+
+        .badge-not-placed {
+            background: #f8d7da;
+            color: #721c24;
+        }
+
+        .no-predictions {
+            text-align: center;
+            padding: 40px;
+            color: #999;
+        }
+
+        .no-predictions p {
+            margin: 0;
+            font-size: 16px;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 15px;
+            }
+
+            .action-buttons {
+                flex-direction: column;
+            }
+
+            .action-buttons .btn {
+                width: 100%;
+            }
+
+            .predictions-table {
+                font-size: 12px;
+            }
+
+            .predictions-table th,
+            .predictions-table td {
+                padding: 8px;
+            }
+        }
+        }
+
+        .no-data {
+            text-align: center;
+            padding: 40px;
+            color: #999;
+        }
+
+        .error-message {
+            background-color: #f8d7da;
+            color: #721c24;
+            padding: 15px;
+            border-radius: 5px;
+            margin-bottom: 20px;
+            border-left: 4px solid #f5c6cb;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar">
+        <div class="navbar-content">
+            <h1>📊 Placement Prediction System</h1>
+            <div class="navbar-links">
+                <a href="{{ url_for('user_dashboard') }}">Dashboard</a>
+                <a href="{{ url_for('predict') }}">Make Prediction</a>
+                <a href="{{ url_for('profile') }}">Profile</a>
+                <a href="{{ url_for('logout') }}">Logout</a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container">
+        <div class="welcome-section">
+            <h2>Welcome back, {{ user_details.username if user_details else session.username }}! 👋</h2>
+            <p>📧 Email: {{ user_details.email if user_details else current_user.email }}</p>
+            <p>View your predictions and statistics below.</p>
+        </div>
+
+        {% if error %}
+            <div class="alert alert-danger">{{ error }}</div>
+        {% endif %}
+
+        <div class="stats-grid">
+            <div class="stat-card">
+                <h3>Total Predictions</h3>
+                <div class="value">{{ stats.total_predictions }}</div>
+            </div>
+            <div class="stat-card success">
+                <h3>Placed</h3>
+                <div class="value">{{ stats.placed }}</div>
+            </div>
+            <div class="stat-card danger">
+                <h3>Not Placed</h3>
+                <div class="value">{{ stats.not_placed }}</div>
+            </div>
+            <div class="stat-card info">
+                <h3>Avg Salary</h3>
+                <div class="value">₹{{ stats.avg_salary|int }}</div>
+            </div>
+        </div>
+
+        <div class="action-buttons">
+            <a href="{{ url_for('predict') }}" class="btn btn-primary">+ New Prediction</a>
+        </div>
+
+        <div class="predictions-section">
+            <h3>📈 Your Predictions</h3>
+            {% if predictions %}
+                <table class="predictions-table">
+                    <thead>
+                        <tr>
+                            <th>Student Name</th>
+                            <th>CGPA</th>
+                            <th>Placement Status</th>
+                            <th>Salary (if placed)</th>
+                            <th>Date</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for pred in predictions %}
+                            <tr>
+                                <td>{{ current_user.username }}</td>
+                                <td>{{ pred.cgpa if pred.cgpa else 'N/A' }}</td>
+                                <td>
+                                    {% if pred.placement_result == 'Placed' %}
+                                        <span class="badge badge-placed">Placed ✓</span>
+                                    {% else %}
+                                        <span class="badge badge-not-placed">Not Placed ✗</span>
+                                    {% endif %}
+                                </td>
+                                <td>
+                                    {% if pred.salary_result and pred.salary_result > 0 %}
+                                        ₹{{ (pred.salary_result)|int }}
+                                    {% else %}
+                                        N/A
+                                    {% endif %}
+                                </td>
+                                <td>
+                                    {% if pred.created_at %}
+                                        {{ pred.created_at.strftime('%b %d, %Y') }}
+                                    {% else %}
+                                        N/A
+                                    {% endif %}
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            {% else %}
+                <div class="no-data">
+                    <p>No predictions yet. <a href="{{ url_for('predict') }}" style="color: #667eea;">Create your first prediction</a></p>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+</body>
+</html>

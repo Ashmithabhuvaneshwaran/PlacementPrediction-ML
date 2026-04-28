@@ -1,0 +1,155 @@
+PLACEMENT PREDICTION ML - EXAMPLE INPUT GUIDE
+===============================================
+
+## Model Information
+- Placement Prediction Model: 11 input features
+- Salary Prediction Model: 12 input features (11 + Placement Status)
+
+## Feature Requirements
+
+### Input Features (11 total):
+1. CGPA (GPA) - Float (0-10 scale) - e.g., 8.5
+2. Major Projects - Integer (0+) - e.g., 3
+3. Workshops/Certifications - Integer (0+) - e.g., 2
+4. Mini Projects - Integer (0+) - e.g., 2
+5. Skills - Comma-separated text - e.g., "Python,Java,ML"
+6. Communication Skill Rating - Float (0-5 scale) - e.g., 4.0
+7. Internship - Yes/No or 1/0 - e.g., "Yes"
+8. Hackathon - Yes/No or 1/0 - e.g., "Yes"
+9. 12th Percentage - Integer (0-100) - e.g., 80
+10. 10th Percentage - Integer (0-100) - e.g., 85
+11. Backlogs - Integer (0+) - e.g., 0
+
+===============================================
+## EXAMPLE 1: Good Candidate (Expected: Placed)
+===============================================
+
+Form/JSON Input:
+{
+  "name": "John Doe",
+  "cgpa": "8.5",
+  "projects": "3",
+  "workshops": "2",
+  "mini_projects": "2",
+  "skills": "Python,Java,ML",
+  "communication_skills": "4.0",
+  "internship": "Yes",
+  "hackathon": "Yes",
+  "tw_percentage": "80",
+  "te_percentage": "85",
+  "backlogs": "0"
+}
+
+Breakdown:
+- CGPA: 8.5 (Very Good)
+- Projects: 3 (Strong)
+- Workshops: 2 (Decent)
+- Mini Projects: 2 (Decent)
+- Skills Count: 3 (Python, Java, ML)
+- Communication: 4.0/5 (Excellent)
+- Internship: Yes (Good Experience)
+- Hackathon: Yes (Shows Initiative)
+- 12th %: 80 (Good)
+- 10th %: 85 (Good)
+- Backlogs: 0 (No Academic Issues)
+
+Expected Output: ✓ Placed | Expected Salary: ₹500,000+
+
+===============================================
+## EXAMPLE 2: Average Candidate (Expected: Placed)
+===============================================
+
+Form/JSON Input:
+{
+  "name": "Jane Smith",
+  "cgpa": "7.2",
+  "projects": "2",
+  "workshops": "1",
+  "mini_projects": "1",
+  "skills": "Python,JavaScript",
+  "communication_skills": "3.5",
+  "internship": "Yes",
+  "hackathon": "No",
+  "tw_percentage": "70",
+  "te_percentage": "75",
+  "backlogs": "0"
+}
+
+Breakdown:
+- CGPA: 7.2 (Decent)
+- Projects: 2 (Moderate)
+- Workshops: 1 (Minimal)
+- Mini Projects: 1 (Minimal)
+- Skills Count: 2 (Python, JavaScript)
+- Communication: 3.5/5 (Good)
+- Internship: Yes (Good)
+- Hackathon: No (No Extra Activity)
+- 12th %: 70 (Average)
+- 10th %: 75 (Average)
+- Backlogs: 0 (No Issues)
+
+Expected Output: ✓ Placed | Expected Salary: ₹400,000-500,000
+
+===============================================
+## EXAMPLE 3: Weak Candidate (Expected: Not Placed)
+===============================================
+
+Form/JSON Input:
+{
+  "name": "Bob Wilson",
+  "cgpa": "5.5",
+  "projects": "0",
+  "workshops": "0",
+  "mini_projects": "1",
+  "skills": "Python",
+  "communication_skills": "2.5",
+  "internship": "No",
+  "hackathon": "No",
+  "tw_percentage": "55",
+  "te_percentage": "60",
+  "backlogs": "2"
+}
+
+Breakdown:
+- CGPA: 5.5 (Below Average)
+- Projects: 0 (None)
+- Workshops: 0 (None)
+- Mini Projects: 1 (Very Minimal)
+- Skills Count: 1 (Only Python)
+- Communication: 2.5/5 (Below Average)
+- Internship: No (No Experience)
+- Hackathon: No (No Extra Activity)
+- 12th %: 55 (Below Average)
+- 10th %: 60 (Below Average)
+- Backlogs: 2 (Academic Issues)
+
+Expected Output: ✗ Not Placed | Recommended: Improve skills and reduce backlogs
+
+===============================================
+## URL FORMAT FOR PREDICTION
+===============================================
+
+GET /predict?name=John+Doe&cgpa=8.5&projects=3&workshops=2&mini_projects=2&skills=Python,Java,ML&communication_skills=4.0&internship=Yes&hackathon=Yes&tw_percentage=80&te_percentage=85&backlogs=0
+
+===============================================
+## NOTES
+===============================================
+
+1. Skills should be comma-separated (no spaces for count accuracy)
+   ✓ "Python,Java,ML"
+   ✓ "Python, Java, ML" (spaces are okay)
+   ✗ "Python Java ML" (won't be counted correctly)
+
+2. Internship/Hackathon accept:
+   ✓ "Yes" or "No"
+   ✓ "yes" or "no"
+   ✓ "1" or "0"
+   ✓ "true" or "false"
+
+3. All numeric fields should be numbers (float or int)
+
+4. Percentages (12th/10th) should be 0-100
+
+5. Communication rating should be 0-5 scale
+
+6. CGPA should be on 0-10 scale (or appropriate scale)

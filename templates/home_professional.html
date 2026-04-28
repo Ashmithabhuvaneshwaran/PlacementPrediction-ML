@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Placement Prediction System - Advanced ML Solutions</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/professional.css') }}">
+    <style>
+        .hero-buttons {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-top: 40px;
+        }
+        
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+            margin: 60px 0;
+        }
+        
+        .feature-card {
+            background: var(--white);
+            padding: 40px 30px;
+            border-radius: 12px;
+            text-align: center;
+            box-shadow: var(--shadow-md);
+            transition: var(--transition);
+            border-top: 4px solid var(--primary-blue);
+        }
+        
+        .feature-card:hover {
+            box-shadow: var(--shadow-xl);
+            transform: translateY(-8px);
+            border-top-color: var(--accent-teal);
+        }
+        
+        .feature-icon {
+            font-size: 48px;
+            margin-bottom: 20px;
+        }
+        
+        .feature-card h3 {
+            color: var(--primary-dark);
+            font-size: 20px;
+            margin-bottom: 15px;
+        }
+        
+        .feature-card p {
+            color: var(--gray-600);
+            font-size: 14px;
+            line-height: 1.6;
+        }
+        
+        .stats-banner {
+            background: linear-gradient(135deg, var(--primary-dark) 0%, var(--primary-blue) 100%);
+            color: var(--white);
+            padding: 60px 20px;
+            margin: 60px 0;
+            border-radius: 12px;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 40px;
+            text-align: center;
+        }
+        
+        .stats-banner h3 {
+            font-size: 32px;
+            font-weight: 800;
+            margin-bottom: 10px;
+        }
+        
+        .stats-banner p {
+            color: rgba(255, 255, 255, 0.9);
+            font-size: 14px;
+        }
+        
+        .cta-section {
+            background: var(--accent-teal);
+            color: var(--white);
+            padding: 80px 20px;
+            text-align: center;
+            border-radius: 12px;
+            margin: 60px 0;
+        }
+        
+        .cta-section h2 {
+            font-size: 36px;
+            margin-bottom: 20px;
+        }
+        
+        .cta-section p {
+            font-size: 18px;
+            margin-bottom: 30px;
+            opacity: 0.95;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="navbar-content">
+            <h1>📊 Placement Prediction</h1>
+            <ul class="navbar-links">
+                <li><a href="/">Home</a></li>
+                <li><a href="/about">About</a></li>
+                <li><a href="/login">Login</a></li>
+                <li><a href="/admin-login">Admin</a></li>
+                <li><a href="/register" class="btn btn-primary" style="margin: 0;">Get Started</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main>
+        <div class="container">
+            <!-- Hero Section -->
+            <section class="hero">
+                <h2>Welcome to Placement Prediction System</h2>
+                <p>AI-Powered Career Success Platform Built with Advanced Machine Learning</p>
+                <div class="hero-buttons">
+                    <a href="/predict" class="btn btn-primary">Start Prediction</a>
+                    <a href="/register" class="btn btn-secondary">Create Account</a>
+                </div>
+            </section>
+
+            <!-- Features Section -->
+            <section>
+                <div class="section-header">
+                    <h2>Why Choose Our Platform?</h2>
+                    <p>Comprehensive placement prediction with industry-leading accuracy</p>
+                </div>
+                
+                <div class="features-grid">
+                    <div class="feature-card">
+                        <div class="feature-icon">🤖</div>
+                        <h3>AI-Powered Analysis</h3>
+                        <p>Advanced machine learning algorithms analyze your profile with high accuracy to predict placement chances.</p>
+                    </div>
+                    
+                    <div class="feature-card">
+                        <div class="feature-icon">📊</div>
+                        <h3>Salary Estimation</h3>
+                        <p>Get accurate salary predictions based on your skills, experience, and current market trends.</p>
+                    </div>
+                    
+                    <div class="feature-card">
+                        <div class="feature-icon">📈</div>
+                        <h3>Track Progress</h3>
+                        <p>Monitor multiple predictions and track your improvement over time with detailed analytics.</p>
+                    </div>
+                    
+                    <div class="feature-card">
+                        <div class="feature-icon">💡</div>
+                        <h3>Personalized Insights</h3>
+                        <p>Receive actionable insights into your strengths and areas for improvement based on analysis.</p>
+                    </div>
+                    
+                    <div class="feature-card">
+                        <div class="feature-icon">🔒</div>
+                        <h3>Data Security</h3>
+                        <p>Your personal information is encrypted and stored securely with enterprise-grade protection.</p>
+                    </div>
+                    
+                    <div class="feature-card">
+                        <div class="feature-icon">📱</div>
+                        <h3>Mobile Responsive</h3>
+                        <p>Access your predictions anytime, anywhere with our fully responsive platform design.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Stats Banner -->
+            <section class="stats-banner">
+                <div>
+                    <h3>10K+</h3>
+                    <p>Students Analyzed</p>
+                </div>
+                <div>
+                    <h3>95%</h3>
+                    <p>Prediction Accuracy</p>
+                </div>
+                <div>
+                    <h3>50+</h3>
+                    <p>Hiring Partners</p>
+                </div>
+                <div>
+                    <h3>24/7</h3>
+                    <p>Support Available</p>
+                </div>
+            </section>
+
+            <!-- CTA Section -->
+            <section class="cta-section">
+                <h2>Ready to Predict Your Future?</h2>
+                <p>Join thousands of students who are using our platform to ace their placements</p>
+                <a href="/register" class="btn btn-secondary" style="background: var(--white); color: var(--accent-teal);">Create Free Account</a>
+            </section>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>Platform</h3>
+                    <ul>
+                        <li><a href="/">Home</a></li>
+                        <li><a href="/about">About Us</a></li>
+                        <li><a href="/predict">Make Prediction</a></li>
+                        <li><a href="/dashboard">Dashboard</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-section">
+                    <h3>Account</h3>
+                    <ul>
+                        <li><a href="/login">Sign In</a></li>
+                        <li><a href="/register">Create Account</a></li>
+                        <li><a href="/admin-login">Admin Portal</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-section">
+                    <h3>Support</h3>
+                    <ul>
+                        <li><a href="#">Help Center</a></li>
+                        <li><a href="#">Contact Us</a></li>
+                        <li><a href="#">Privacy Policy</a></li>
+                        <li><a href="#">Terms of Service</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-section">
+                    <h3>Company</h3>
+                    <ul>
+                        <li><a href="#">Blog</a></li>
+                        <li><a href="#">Careers</a></li>
+                        <li><a href="#">Partners</a></li>
+                        <li><a href="#">Technology</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2026 Placement Prediction System. All rights reserved. | Powered by Advanced ML Technologies</p>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>

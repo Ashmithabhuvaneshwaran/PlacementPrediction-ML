@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Predict - Placement Prediction System</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
+    <style>
+        body {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding-top: 80px;
+            padding: 20px;
+            padding-top: 100px;
+        }
+
+        .container {
+            max-width: 700px;
+            margin: 0 auto;
+            background: white;
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+        }
+
+        .form-header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .form-header h2 {
+            color: #333;
+            font-size: 28px;
+            margin-bottom: 10px;
+        }
+
+        .form-header p {
+            color: #999;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        .button-group {
+            display: flex;
+            gap: 10px;
+            margin-top: 30px;
+        }
+
+        .btn {
+            flex: 1;
+            padding: 12px;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+            text-align: center;
+        }
+
+        .info-text {
+            color: #999;
+            font-size: 12px;
+            margin-top: 5px;
+        }
+
+        @media (max-width: 768px) {
+            body {
+                padding: 15px;
+                padding-top: 100px;
+            }
+
+            .container {
+                padding: 20px;
+            }
+
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+
+            .button-group {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar">
+        <div class="navbar-content">
+            <h1>📊 Placement Prediction</h1>
+            <div class="navbar-links">
+                <a href="{{ url_for('h') }}">Home</a>
+                <a href="{{ url_for('predict') }}">Prediction</a>
+                <a href="{{ url_for('about') }}">About</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Prediction Form Container -->
+    <div class="container">
+        <div class="form-header">
+            <h2>Make a Prediction</h2>
+            <p>Enter your academic details to predict placement and salary</p>
+        </div>
+
+        {% if error %}
+            <div class="error-message">{{ error }}</div>
+        {% endif %}
+
+        <form method="POST" action="{{ url_for('predict') }}">
+            <div class="form-group">
+                <label for="name">Student Name *</label>
+                <input type="text" id="name" name="name" placeholder="Full name" required>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="cgpa">CGPA (0-10) *</label>
+                    <input type="number" id="cgpa" name="cgpa" step="0.01" min="0" max="10" placeholder="e.g., 7.5" required>
+                </div>
+                <div class="form-group">
+                    <label for="backlogs">Backlogs *</label>
+                    <input type="number" id="backlogs" name="backlogs" min="0" placeholder="e.g., 0" required>
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="projects">Major Projects *</label>
+                    <input type="number" id="projects" name="projects" min="0" placeholder="e.g., 2" required>
+                </div>
+                <div class="form-group">
+                    <label for="mini_projects">Mini Projects *</label>
+                    <input type="number" id="mini_projects" name="mini_projects" min="0" placeholder="e.g., 1" required>
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="workshops">Workshops/Certifications *</label>
+                    <input type="number" id="workshops" name="workshops" min="0" placeholder="e.g., 1" required>
+                </div>
+                <div class="form-group">
+                    <label for="communication_skills">Communication Rating (0-10) *</label>
+                    <input type="number" id="communication_skills" name="communication_skills" step="0.1" min="0" max="10" placeholder="e.g., 7" required>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="skills">Skills (comma-separated) *</label>
+                <input type="text" id="skills" name="skills" placeholder="e.g., Python, Java, SQL" required>
+                <div class="info-text">Enter skills separated by commas</div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="tw_percentage">12th Percentage *</label>
+                    <input type="number" id="tw_percentage" name="tw_percentage" step="0.01" min="0" max="100" placeholder="e.g., 85" required>
+                </div>
+                <div class="form-group">
+                    <label for="te_percentage">10th Percentage *</label>
+                    <input type="number" id="te_percentage" name="te_percentage" step="0.01" min="0" max="100" placeholder="e.g., 90" required>
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="internship">Internship Experience *</label>
+                    <select id="internship" name="internship" required>
+                        <option value="No">No</option>
+                        <option value="Yes">Yes</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="hackathon">Hackathon Participation *</label>
+                    <select id="hackathon" name="hackathon" required>
+                        <option value="No">No</option>
+                        <option value="Yes">Yes</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="button-group">
+                <button type="submit" class="btn btn-primary">Predict</button>
+                <a href="{{ url_for('h') }}" class="btn btn-secondary">Cancel</a>
+            </div>
+        </form>
+    </div>
+</body>
+</html>
